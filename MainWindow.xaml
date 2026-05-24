@@ -1,0 +1,140 @@
+﻿<Window x:Class="blazingzephyr.itmo.tensors.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tensor Visualizer" Height="640" Width="960"
+        Background="#1E1E2E">
+
+    <Window.Resources>
+
+        <!-- Вкладка -->
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground"        Value="#CDD6F4"/>
+            <Setter Property="Background"        Value="#313244"/>
+            <Setter Property="BorderBrush"       Value="#44475A"/>
+            <Setter Property="Padding"           Value="12,6"/>
+            <Setter Property="FontSize"          Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1,1,1,0"
+                                CornerRadius="6,6,0,0"
+                                Margin="2,4,2,0"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background"  Value="#1E1E2E"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#89B4FA"/>
+                                <Setter Property="Foreground"                      Value="#89B4FA"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#45475A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- TabControl — убираем белую рамку по умолчанию -->
+        <Style TargetType="TabControl">
+            <Setter Property="Background"   Value="#1E1E2E"/>
+            <Setter Property="BorderBrush" Value="#44475A"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Заголовки вкладок -->
+                            <Border Grid.Row="0"
+                                    BorderBrush="#44475A"
+                                    BorderThickness="0,0,0,1"
+                                    Background="#181825">
+                                <TabPanel IsItemsHost="True"
+                                          Margin="4,0,0,0"
+                                          Background="Transparent"/>
+                            </Border>
+
+                            <!-- Содержимое активной вкладки -->
+                            <Border Grid.Row="1"
+                                    Background="#1E1E2E"
+                                    BorderBrush="#44475A"
+                                    BorderThickness="0">
+                                <ContentPresenter ContentSource="SelectedContent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Слайдер -->
+        <Style TargetType="Slider">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin"            Value="4,0,0,0"/>
+            <Style.Resources>
+                <Style TargetType="Track"/>
+            </Style.Resources>
+        </Style>
+
+        <!-- Кнопка -->
+        <Style TargetType="Button">
+            <Setter Property="Background"        Value="#313244"/>
+            <Setter Property="Foreground"        Value="#CDD6F4"/>
+            <Setter Property="BorderBrush"       Value="#44475A"/>
+            <Setter Property="BorderThickness"   Value="1"/>
+            <Setter Property="Padding"           Value="10,4"/>
+            <Setter Property="Margin"            Value="8,2,0,2"/>
+            <Setter Property="Cursor"            Value="Hand"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background"  Value="#45475A"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#89B4FA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#585B70"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Панель управления под viewport'ом -->
+        <Style TargetType="StackPanel" x:Key="ControlPanel">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Background"  Value="#181825"/>
+            <Setter Property="Margin"      Value="0"/>
+        </Style>
+
+    </Window.Resources>
+
+    <TabControl x:Name="tabControl"/>
+
+</Window>
